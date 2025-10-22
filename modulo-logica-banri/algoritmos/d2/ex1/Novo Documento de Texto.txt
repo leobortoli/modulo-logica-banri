@@ -1,0 +1,20 @@
+using System;
+
+namespace complementar
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {   
+            int num = int.Parse(Console.ReadLine());
+            int c1 = 1;
+            int c2 = 10;
+            int c3 = 100;
+            int a3 = num/c3;
+            int a2 = (num - (a3*c3))/c2;
+            int a1 = num - (a3 * c3) - (a2 * c2);
+            Console.WriteLine($"{a3}{a2}{a1} \nCasa 1: {a3} \nCasa 2: {a2} \nCasa 3: {a1} \nSoma: {a3+a2+a1}");
+        }
+    }
+}
+ ou 

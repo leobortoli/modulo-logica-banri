@@ -1,0 +1,27 @@
+using System;
+
+namespace exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {   
+            int altura = int.Parse(Console.ReadLine());
+            string pais = Console.ReadLine();
+            bool pais_estao = pais.Equals("sim", StringComparison.OrdinalIgnoreCase);
+
+            bool pode_entrar = (altura >= 120) || pais_estao;
+            Console.WriteLine(pode_entrar);
+
+            int num1 = int.Parse(Console.ReadLine());
+            bool positivo_par = num1 >= 0 && (num1 % 2) == 0;
+            Console.WriteLine(positivo_par);
+
+            int ano = int.Parse(Console.ReadLine());
+            bool bissexto = (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
+            Console.WriteLine(bissexto);
+
+
+        }
+    }
+}

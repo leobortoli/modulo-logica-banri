@@ -1,0 +1,148 @@
+--1
+using System;
+using System.Globalization;
+
+class AssistenteVirtual
+{
+    static void ComWhile()
+    {
+        int numeroEscolhido = 0;
+        int numeroSecreto = new Random().Next(1, 11);
+        int contador = -1;
+        while (numeroEscolhido != numeroSecreto) //pode ser true
+        {
+            Console.WriteLine("Digite um número (1-10): ");
+            numeroEscolhido = int.Parse(Console.ReadLine());
+            if (numeroEscolhido > numeroSecreto)
+            {
+                Console.WriteLine("O número é menor do que o escolhido");
+            }
+            else if (numeroEscolhido == numeroSecreto)
+            {
+                Console.Write(""); //ai aqui botaria o break
+            }
+            else
+            {
+                Console.WriteLine("O número é maior do que o escolhido");
+            }
+            contador += 1;
+        };
+
+        Console.WriteLine($"Parabéns, você acertou (número: {numeroSecreto}), seu número de tentativas falhas foi {contador}");
+    }
+    static void ComDoWhile()
+    {
+        int numeroEscolhido;
+        int numeroSecreto = new Random().Next(1, 11);
+        int contador = -1;
+        do
+        {
+            Console.WriteLine("Digite um número (1-10): ");
+            numeroEscolhido = int.Parse(Console.ReadLine());
+            if (numeroEscolhido > numeroSecreto)
+            {
+                Console.WriteLine("O número é menor do que o escolhido");
+            }
+            else if (numeroEscolhido == numeroSecreto)
+            {
+                Console.Write("");
+            }
+            else
+            {
+                Console.WriteLine("O número é maior do que o escolhido");
+            }
+            contador += 1;
+        } while (numeroEscolhido != numeroSecreto);
+
+        Console.WriteLine($"Parabéns, você acertou (número: {numeroSecreto}), seu número de tentativas falhas foi {contador}");
+    }
+    static void Main()
+    {
+        int numeroEscolhido = 0;
+        int numeroSecreto = new Random().Next(1, 11);
+        int contador = -1;
+        for (int i = 0; numeroEscolhido != numeroSecreto; i++)
+        {
+            Console.WriteLine("Digite um número (1-10): ");
+            numeroEscolhido = int.Parse(Console.ReadLine());
+            if (numeroEscolhido > numeroSecreto)
+            {
+                Console.WriteLine("O número é menor do que o escolhido");
+            } else if (numeroEscolhido == numeroSecreto)
+            {
+                Console.Write("");
+            } else
+            {
+                Console.WriteLine("O número é maior do que o escolhido");
+            }
+            contador += 1;
+        }
+
+        Console.WriteLine($"Parabéns, você acertou (número: {numeroSecreto}), seu número de tentativas falhas foi {contador}");
+    }
+}
+
+--2
+using System;
+using System.Globalization;
+
+class AssistenteVirtual
+{
+    static DateTime dataLocal = DateTime.Now;
+    static readonly CultureInfo cultura = new CultureInfo("pt-BR");
+
+    static void Main()
+    {
+        int opcaoSelecionada;
+        do 
+        {
+            ExibirMenu();
+            opcaoSelecionada = int.Parse(Console.ReadLine());
+            switch (opcaoSelecionada)
+            {
+                case 0:
+                    break;
+                case 1:
+                    ObterDataAtual(dataLocal, cultura);
+                    break;
+                case 2:
+                    ObterHoraAtual(dataLocal, cultura);
+                    break;
+                case 3:
+                    DizerOla();
+                    break;
+                default:
+                    break;
+            }
+        } while (opcaoSelecionada != 0);
+    }
+
+
+    static void ExibirMenu()
+    {
+        Console.WriteLine("===== Menu Interativo =====");
+        Console.WriteLine("1 - Exibir data atual");
+        Console.WriteLine("2 - Exibir hora atual");
+        Console.WriteLine("3 - Exibir saudação");
+        Console.WriteLine("0 - Finalizar");
+        Console.WriteLine("===========================");
+        Console.Write("Escolha uma opção válida: ");
+    }
+
+    static void ObterDataAtual(DateTime data, CultureInfo cultura)
+    {
+            Console.WriteLine("   Data: {0}",
+                              dataLocal.ToString(cultura).Substring(0, 10));
+    }
+
+    static void ObterHoraAtual(DateTime data, CultureInfo cultura)
+    {
+        Console.WriteLine("   Hora: {0}",
+                          dataLocal.ToString(cultura).Substring(11));
+    }
+
+    static void DizerOla()
+    {
+        Console.WriteLine("Olá, usuário!\n");
+    }
+}

@@ -1,0 +1,174 @@
+-- 1
+using System;
+
+namespace complementar
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            byte num1 = Convert.ToByte(Console.ReadLine());
+            byte num2 = Convert.ToByte(Console.ReadLine()); ;
+            byte troca;
+
+            Console.WriteLine($"1: {num1} e 2:{num2}");
+            troca = num1;
+            num1 = num2;
+            num2 = troca;
+            Console.WriteLine($"1: {num1} e 2:{num2}");
+
+        }
+    }
+}
+-- 2
+using System;
+
+namespace complementar
+{
+    class Temperatura
+    {
+        static void Main(string[] args)
+        {
+            double fahr = Convert.ToDouble(Console.ReadLine());
+            double cels = (fahr-32) * 5/9; 
+
+            Console.WriteLine($"Temperatura em Fahrenheit: {fahr};\n Temperatura em Celsius: {cels}.");
+        }
+    }
+}
+-- 3
+using System;
+
+namespace complementar
+{
+    class Metrica
+    {
+        class Terreno
+        {
+            public double comprimento;
+            public double largura;
+            
+            public double GetArea()
+            {
+                return this.comprimento * this.largura;
+            }
+        }
+
+        class Casa
+        {
+            public double comprimento;
+            public double largura;
+            public double GetArea()
+            {
+                return this.comprimento * this.largura;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Terreno terra = new Terreno();
+
+            Casa lar = new Casa();
+
+            terra.comprimento = 500;
+            terra.largura = 200;
+
+            lar.comprimento = 200;
+            lar.largura = 100;
+
+            double areaLivre = terra.GetArea() - lar.GetArea();
+
+            Console.WriteLine($"Terra: \nComprimento: {terra.comprimento} \nLargura: {terra.largura} \n");
+            Console.WriteLine($"Propriedade: \nComprimento: { lar.comprimento} \nLargura: { lar.largura}");
+            Console.WriteLine($"Area Livre: {areaLivre}");
+        }
+    }
+}
+-- 4
+using System;
+
+namespace complementar
+{
+    class Temporizador
+    {
+        static void Main(string[] args)
+        {
+            int segundoPassado = Convert.ToInt32(Console.ReadLine());
+            int minutoPassado = Convert.ToInt32(Console.ReadLine());
+            int HoraPassada = Convert.ToInt32(Console.ReadLine());
+            int segundo = 1;
+            int minuto = 60;
+            int hora = 3600;
+
+            int tempoPassado = (segundoPassado * segundo) + (minutoPassado * minuto) + (HoraPassada * hora);
+
+            Console.WriteLine($"Tempo Passado (em segundos): {tempoPassado}");
+
+        }
+    }
+}
+-- 5 
+using System;
+
+namespace complementar
+{
+    class Temporizador
+    {
+        static void Main(string[] args)
+        {
+            int segundoPassado = Convert.ToInt32(Console.ReadLine());
+            int minutoPassado = Convert.ToInt32(Console.ReadLine());
+            int HoraPassada = Convert.ToInt32(Console.ReadLine());
+            int segundo = 1;
+            int minuto = 60;
+            int hora = 3600;
+
+            int tempoTotal = 24*hora;
+
+            int tempoPassado = (segundoPassado * segundo) + (minutoPassado * minuto) + (HoraPassada * hora);
+
+            int tempoRestante = tempoTotal - tempoPassado;
+
+            int horaRestante = tempoRestante/hora;
+
+            int tempoAtualizado = tempoRestante - (horaRestante*hora);
+
+            int minutoRestante = tempoAtualizado / minuto;
+
+            int segundoRestante = tempoAtualizado - (minutoRestante*minuto);
+
+            Console.WriteLine($"Tempo Passado (em segundos): {tempoPassado}");
+            Console.WriteLine($"Tempo Restante (em segundos): {tempoRestante}");
+            Console.WriteLine($"Tempo Restante: {horaRestante}:{minutoRestante}:{segundoRestante}");
+        }
+    }
+}
+-- 6
+using System;
+
+namespace complementar
+{
+    class Planetas
+    {
+        static void Main(string[] args)
+        {   
+            double pesoMercurio = 0.3649337410;
+            double pesoVenus = 0.9041794087;
+            double pesoMarte = 0.3812436289;
+            double pesoLua = 0.1651376146;
+            double pesoTerra = 1;
+            double pesoJupiter = 2.6513761467;
+            double pesoSaturno = 1.1386340468;
+            double pesoUrano = 1.0693170234;
+            double pesoNetuno = 1.3506625891;
+            double pesoPlutao = 0.2252803261;
+
+            double seuPeso = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine($"Peso Original: {seuPeso} \nPeso em Mercúrio: {seuPeso*pesoMercurio} \nPeso em Vênus: {seuPeso*pesoVenus}");
+            Console.WriteLine($"Peso em Marte: {seuPeso*pesoMarte} \nPeso na Lua: {seuPeso*pesoLua} \nPeso na Terra: {seuPeso*pesoTerra}");
+            Console.WriteLine($"Peso em Júpiter: {seuPeso*pesoJupiter} \nPeso em Saturno: {seuPeso*pesoSaturno} \nPeso em Urano: {seuPeso*pesoUrano}");
+            Console.WriteLine($"Peso em Netuno: {seuPeso*pesoNetuno} \nPeso em Plutão: {seuPeso*pesoPlutao}");
+        }
+    }
+}

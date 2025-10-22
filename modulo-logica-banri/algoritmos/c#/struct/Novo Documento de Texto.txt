@@ -1,0 +1,85 @@
+Um tipo de estrutura (ou tipo de struct) é um tipo de 
+valor que pode encapsular dados e funcionalidades 
+relacionadas. Você usa a palavra-chave struct para 
+definir um tipo de estrutura:
+
+public struct Coords
+{
+    public Coords(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public double X { get; }
+    public double Y { get; }
+
+    public override string ToString() => $"({X}, {Y})";
+}
+
+READONLY
+
+O seguinte código define um struct readonly 
+com setters de propriedade somente inicialização:
+
+public readonly struct Coords
+{
+    public Coords(double x, double y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public double X { get; init; }
+    public double Y { get; init; }
+
+    public override string ToString() => $"({X}, {Y})";
+}
+
+O modificador readonly em métodos de instância 
+indica que não alteram o estado interno da struct.
+
+Se não for possível tornar toda a struct readonly, 
+você pode aplicar readonly apenas aos métodos que 
+não modificam seus campos.
+
+Dentro de um método readonly, não é permitido 
+modificar campos da instância.
+
+Se um método readonly chama outro método não-readonly, 
+o compilador cria uma cópia da struct para garantir 
+que o original não seja alterado.
+
+Isso ajuda a manter a imutabilidade e evitar 
+efeitos colaterais indesejados.
+
+public readonly double Sum()
+{
+    return X + Y;
+}
+
+ou
+
+public readonly override string ToString() => $"({X}, {Y})";
+
+propriedades e indexadores:
+
+private int counter;
+public int Counter
+{
+    readonly get => counter;
+    set => counter = value;
+}
+
+Você pode aplicar o modificador readonly a uma propriedade 
+ou a um indexador com um acessador init:
+
+public readonly double X { get; init; }
+
+RECORD
+
+Você pode definir tipos de estrutura de registro. Os tipos 
+de registro fornecem funcionalidade interna para encapsular dados. 
+Você pode definir os tipos record struct e readonly record struct. 
+Um struct de registro não pode ser um ref struct. Saiba mais e obtenha 
+exemplos em Registros.

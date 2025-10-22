@@ -1,0 +1,135 @@
+https://learn.microsoft.com/pt-br/dotnet/csharp/delegate-class
+Você pode usar o delegado genérico ComparisonT para 
+representar o método CompareLength, desde que o tipo genérico T 
+seja string. O método CompareLength tem a mesma assinatura esperada 
+por Comparisonstring, ou seja, recebe dois parâmetros do tipo string 
+e retorna um int.
+using System;
+
+class Program
+{
+    public delegate int Comparison<in T>(T left, T right);    
+	
+    public Comparison<T> comparator;
+
+    private static int CompareLength(string left, string right) =>
+        left.Length.CompareTo(right.Length);
+
+    static void Main()
+    {
+        Comparison<string> comparison = new Comparison<string>(CompareLength);
+
+        string[] words = { "banana", "apple", "cherry", "date" };
+        Array.Sort(words, comparison);
+
+        foreach (var word in words)
+        {
+            Console.WriteLine(word);
+        }
+    }
+}
+
+Quando é melhor instanciar previamente o delegado:
+Reutilização:
+Se você vai usar o mesmo método de comparação em vários lugares, instanciar uma vez evita repetição:
+
+Comparison<string> comparator = CompareLength;
+Array.Sort(array1, comparator);
+Array.Sort(array2, comparator);
+
+Troca dinâmica de lógica:
+Se você pretende mudar o comportamento de comparação em tempo de execução:
+
+Comparison<string> comparator;
+if (useLength)
+    comparator = CompareLength;
+else
+    comparator = CompareAlphabetically;
+
+Passagem como parâmetro:
+Quando você quer passar o delegado para outro método ou classe que vai usá-lo depois:
+
+void SortWords(string[] words, Comparison<string> comparator)
+{
+    Array.Sort(words, comparator);
+}
+
+Você também pode ser mais explícito declarando uma variável delegada e atribuindo o método a ela:
+
+	Comparison<string> comparer = CompareLength;
+	phrases.Sort(comparer);
+
+Cada delegado com o qual você trabalha é derivado de MulticastDelegate. 
+Um delegado "multicast" significa que mais de um método de destino pode ser 
+invocado ao chamar por meio de um delegado. O design original considerou 
+fazer uma distinção entre delegados que só poderiam invocar um método 
+versus delegados que poderiam invocar vários métodos. Na prática, essa 
+distinção mostrou-se menos útil do que se pensava originalmente, portanto, 
+todos os delegados no .NET dão suporte a vários métodos de destino.
+
+Os métodos mais usados ao trabalhar com delegados são:
+
+Invoke(): chama todos os métodos anexados ao delegado
+BeginInvoke() / EndInvoke(): usado para padrões de invocação 
+assíncronos (embora async/await agora seja preferencial)
+
+TIPAGEM DE DELEGATE
+
+Criar tipos de delegados concretos com a palavra-chave delegate 
+garante segurança de tipo, mas pode se tornar repetitivo quando 
+há muitas variações de assinatura de métodos. Para evitar isso, 
+o .NET Core oferece delegados genéricos reutilizáveis, como Func<>, 
+Action<> e Predicate<>, que permitem flexibilidade e evitam a necessidade 
+de criar novos tipos de delegado para cada caso.
+
+ACTION
+
+public delegate void Action();
+public delegate void Action<in T>(T arg); // essa tipagem genérica é chamada de covariância
+public delegate void Action<in T1, in T2>(T1 arg1, T2 arg2);
+
+Encapsula um método que não tem parâmetros e não retorna um valor.
+
+using System;
+using System.Windows.Forms;
+
+public delegate void ShowValue();
+
+public class Name
+{
+   private string instanceName;
+
+   public Name(string name)
+   {
+      this.instanceName = name;
+   }
+
+   public void DisplayToConsole()
+   {
+      Console.WriteLine(this.instanceName);
+   }
+
+   public void DisplayToWindow()
+   {
+      MessageBox.Show(this.instanceName);
+   }
+}
+
+public class testTestDelegate
+{
+   public static void Main()
+   {
+      Name testName = new Name("Koani");
+      ShowValue showMethod = testName.DisplayToWindow;
+      showMethod();
+   }
+}
+
+ShowValue pode não ser declarado e simplesmente ser um 
+Action genérico quando invocado no showMethod
+
+FUNC
+
+Encapsula um método que não tem parâmetros e retorna um 
+valor do tipo específico do parâmetro TResult.
+

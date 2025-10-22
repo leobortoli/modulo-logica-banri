@@ -1,0 +1,30 @@
+using System;
+
+namespace exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {   
+            string nome = Console.ReadLine();
+            string sobrenome = Console.ReadLine();
+            string nome_completo = nome + sobrenome;
+
+            string inicial1 = nome.Substring(0, 1).ToUpper();
+            string inicial2 = sobrenome.Substring(0, 1).ToUpper();
+            string nome_sem_espaco = nome_completo.Replace(" ", "");
+
+            int contagem_nome_c = nome_sem_espaco.Length;
+            int contagem_nome = nome.Length;
+            int contagem_sobrenome = sobrenome.Length;
+
+            string primeira_metade = nome.Substring(0, contagem_nome/2);
+            string segunda_metade = sobrenome.Substring(contagem_sobrenome/2);
+
+
+            Console.WriteLine($"Seu nome é {nome} {sobrenome}.");
+            Console.WriteLine($"Suas iniciais são: {inicial1}. {inicial2}. ({contagem_nome_c})");
+            Console.WriteLine($"Seu nome cortado nas metades é {primeira_metade}{segunda_metade}");
+        }
+    }
+}

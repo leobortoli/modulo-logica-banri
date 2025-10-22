@@ -1,0 +1,19 @@
+using System;
+
+namespace exercicios
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {   
+            int num1 = int.Parse(Console.ReadLine());
+            int num2 = int.Parse(Console.ReadLine());
+            Console.WriteLine($">: {Convert.ToInt32(num1 > num2)}\n<: {Convert.ToInt32(num1 < num2)}\n==: {num1 == num2}\n!=: {num1 != num2}\n>=: {num1 >= num2}\n<=: {num1 <= num2}\n");
+
+            string senha_bd = "123";
+            string senha_try = Console.ReadLine();
+            bool senhas = senha_bd == senha_try;
+            Console.WriteLine(senhas);
+        }
+    }
+}

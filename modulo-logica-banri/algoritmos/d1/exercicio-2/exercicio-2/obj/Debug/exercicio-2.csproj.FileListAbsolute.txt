@@ -1,0 +1,7 @@
+C:\Users\E38305\Desktop\modulo-logica-banri\algoritmos\exercicio-2\exercicio-2\obj\Debug\exercicio-2.csprojAssemblyReference.cache
+C:\Users\E38305\Desktop\modulo-logica-banri\algoritmos\exercicio-2\exercicio-2\obj\Debug\exercicio-2.csproj.CoreCompileInputs.cache
+C:\Users\E38305\Desktop\modulo-logica-banri\algoritmos\exercicio-2\exercicio-2\bin\Debug\exercicio-2.exe.config
+C:\Users\E38305\Desktop\modulo-logica-banri\algoritmos\exercicio-2\exercicio-2\bin\Debug\exercicio-2.exe
+C:\Users\E38305\Desktop\modulo-logica-banri\algoritmos\exercicio-2\exercicio-2\bin\Debug\exercicio-2.pdb
+C:\Users\E38305\Desktop\modulo-logica-banri\algoritmos\exercicio-2\exercicio-2\obj\Debug\exercicio-2.exe
+C:\Users\E38305\Desktop\modulo-logica-banri\algoritmos\exercicio-2\exercicio-2\obj\Debug\exercicio-2.pdb

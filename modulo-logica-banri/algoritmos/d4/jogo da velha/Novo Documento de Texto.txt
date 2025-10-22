@@ -1,0 +1,119 @@
+
+using System;
+
+class JogoDaVelha
+{
+    static bool VerificarVitoria(char[,] tabuleiro)
+    {
+        int i;
+        int j;
+        for (i = 0; i > 3; i++)
+        {
+            if (tabuleiro[i, j] == tabuleiro[i + 1, j] && tabuleiro[i + 1, j] == tabuleiro[i + 2, j])
+            {
+                return true;
+            }
+            for (j = 0; j > 3; j++)
+            {
+                if (tabuleiro[i, j] == tabuleiro[i, j + 1] && tabuleiro[i, j + 1] == tabuleiro[i, j + 2])
+                {
+                    return true;
+                }
+                else if ((tabuleiro[i, j] == tabuleiro[i + 1, j + 1] && tabuleiro[i + 1, j + 1] == tabuleiro[i + 2, j + 2]) || (tabuleiro[i, j + 2] == tabuleiro[i + 1, j + 1] && tabuleiro[i + 1, j + 1] == tabuleiro[i + 2, j]))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+        }
+
+    }
+    static void ExibirTabuleiro(char[,] tabuleiro)
+    {
+        Console.WriteLine($" {tabuleiro[0, 0]} | {tabuleiro[0, 1]} | {tabuleiro[0, 2]} ");
+        Console.WriteLine($"---+---+---");
+        Console.WriteLine($" {tabuleiro[1, 0]} | {tabuleiro[1, 1]} | {tabuleiro[1, 2]} ");
+        Console.WriteLine($"---+---+---");
+        Console.WriteLine($" {tabuleiro[2, 0]} | {tabuleiro[2, 1]} | {tabuleiro[2, 2]} ");
+    }
+    static void Jogar(char[,] tabuleiro, char jogador)
+    {
+        bool jogadaFeita = false;
+        do
+        {
+            ExibirTabuleiro(tabuleiro);
+            Console.Write($"É a vez do jogador {jogador}, selecione uma linha para jogar!");
+            int linha = int.Parse(Console.ReadLine());
+            Console.Write($"É a vez do jogador {jogador}, selecione uma coluna para jogar!");
+            int coluna = int.Parse(Console.ReadLine());
+            if (tabuleiro[linha, coluna] != 'X' && tabuleiro[linha, coluna] != 'O')
+            {
+                tabuleiro[linha, coluna] = jogador;
+                jogadaFeita = true;
+            }
+            else
+            {
+                Console.Write("Escolha uma outra posição!");
+            }
+        } while (!jogadaFeita);
+    }
+    static void Main()
+    {
+        Console.WriteLine("Olá jogador, você está jogando o jogo da velha.");
+        bool jogoAcabou = false;
+        char[,] tabuleiro = new char[3, 3];
+        //bool xLinha0 = tabuleiro[0, 0] == 'X' && tabuleiro[0, 1] == 'X' && tabuleiro[0, 2] == 'X';
+        //bool oLinha0 = tabuleiro[0, 0] == 'O' && tabuleiro[0, 1] == 'O' && tabuleiro[0, 2] == 'O';
+        //bool xLinha1 = tabuleiro[1, 0] == 'X' && tabuleiro[1, 1] == 'X' && tabuleiro[1, 2] == 'X';
+        //bool oLinha1 = tabuleiro[1, 0] == 'O' && tabuleiro[1, 1] == 'O' && tabuleiro[1, 2] == 'O';
+        //bool xLinha2 = tabuleiro[2, 0] == 'X' && tabuleiro[2, 1] == 'X' && tabuleiro[2, 2] == 'X';
+        //bool oLinha2 = tabuleiro[2, 0] == 'O' && tabuleiro[2, 1] == 'O' && tabuleiro[2, 2] == 'O';
+        //bool verificaLinhaX = xLinha0 || xLinha1 || xLinha2;
+        //bool verificaLinhaO = oLinha0 || oLinha1 || oLinha2;
+        //bool verificaLinha = verificaLinhaX || verificaLinhaO;
+        //bool xDiagonal0 = tabuleiro[0, 0] == 'X' && tabuleiro[1, 1] == 'X' && tabuleiro[2, 2] == 'X';
+        //bool oDiagonal0 = tabuleiro[0, 0] == 'O' && tabuleiro[1, 1] == 'O' && tabuleiro[2, 2] == 'O';
+        //bool xDiagonal1 = tabuleiro[0, 2] == 'X' && tabuleiro[1, 1] == 'X' && tabuleiro[2, 0] == 'X';
+        //bool oDiagonal1 = tabuleiro[0, 2] == 'O' && tabuleiro[1, 1] == 'O' && tabuleiro[2, 0] == 'O';
+        //bool verificaDiagonalX = xDiagonal0 || xDiagonal1;
+        //bool verificaDiagonalO = oDiagonal0 || oDiagonal1;
+        //bool verificaDiagonal = verificaDiagonalX || verificaDiagonalO;
+        char jogador;
+        bool vitoria = false;
+        do
+        {
+
+            if (!vitoria) //talvez transformar em metodo
+            {
+                jogoAcabou = true;
+                vitoria = true;
+                Console.WriteLine("O jogo acabou: Parabéns Jogador O!");
+                break;
+            }
+            else
+            {
+                jogador = 'X';
+                Jogar(tabuleiro, jogador);
+            }
+            if (!vitoria)
+            {
+                jogoAcabou = true;
+                vitoria = true;
+                Console.WriteLine("O jogo acabou: Parabéns Jogador X!");
+                break;
+            }
+            else
+            {
+                jogador = 'O';
+                Jogar(tabuleiro, jogador);
+            }
+
+        } while (!jogoAcabou);
+        Console.WriteLine("Jogo acabou, tabuleiro final: ");
+        ExibirTabuleiro(tabuleiro);
+    }
+}

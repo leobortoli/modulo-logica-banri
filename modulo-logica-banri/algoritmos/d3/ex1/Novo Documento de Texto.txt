@@ -1,0 +1,59 @@
+using System;
+
+class Sorveteria
+{
+
+    const double PRECO_CHOCOLATE = 5, PRECO_MORANGO = 6, PRECO_FLOCOS = 4;
+    static int ArmazenarInt(){
+        return int.Parse(Console.ReadLine());
+    }
+    static double CalculaPedidos(int unidadesChocolate, int unidadesMorango, int unidadesFlocos)
+    {
+        double totalChocolate = unidadesChocolate * PRECO_CHOCOLATE;
+        double totalMorango = unidadesMorango * PRECO_MORANGO;
+        double totalFlocos = unidadesFlocos * PRECO_FLOCOS;
+
+        double totalPedido = totalChocolate + totalMorango + totalMorango;
+        return totalPedido;
+    }
+    static double AplicarDesconto(int TotalSorvetes, double valorTotal)
+    {
+        if (TotalSorvetes > 5)
+        {
+            valorTotal -= valorTotal / 10;
+        }
+        return valorTotal;
+    }
+    static void ImprimirPedido(int TotalSorvetes, double valorTotal)
+    {
+        AplicarDesconto(TotalSorvetes, valorTotal);
+        if (valorTotal > 20)
+        {
+            Console.WriteLine($"Total do pedido: R$ {valorTotal:0.00} e com cobertura gratuita!");
+        }
+        else
+        {
+            Console.WriteLine($"Total do pedido: R$ {valorTotal:0.00}.");
+        }
+    } 
+    static void Main()
+    {
+
+        Console.Write("Quantos sorvetes de chocolate? ");
+        int qtdChocolate = ArmazenarInt();
+
+        Console.Write("Quantos sorvetes de morango? ");
+        int qtdMorango = ArmazenarInt();
+
+        Console.Write("Quantos sorvetes de flocos? ");
+        int qtdFlocos = ArmazenarInt();
+
+        double valorTotalPedido = CalculaPedidos(qtdChocolate, qtdMorango, qtdFlocos); 
+
+        int qtdTotalSorvetes = qtdChocolate + qtdMorango + qtdFlocos;
+
+	double valorPosDesconto = AplicarDesconto(qtdTotalSorvetes, valorTotalPedido);
+
+        ImprimirPedido(qtdTotalSorvetes, valorPosDesconto);
+    }
+}
