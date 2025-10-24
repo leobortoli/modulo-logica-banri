@@ -1,0 +1,207 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp6
+{
+
+    public enum TipoConta
+    {
+        Corrente = 1,
+        Poupanca = 2
+    }
+    public class Conta
+    {
+        public int _numeroDaConta { get; }
+        public double _saldo { get; set; }
+        public TipoConta _tipo { get; }
+
+        public Conta(int numeroDaConta, double saldo, TipoConta tipo)
+        {
+            this._numeroDaConta = numeroDaConta;
+            this._saldo = saldo;
+            this._tipo = tipo;
+        }
+
+        public override string ToString()
+        {
+            return $"Número da Conta: {_numeroDaConta} {Environment.NewLine}Saldo da Conta: {_saldo} {Environment.NewLine}Tipo da Conta: {_tipo}";
+        }
+
+
+    }
+    public class Cliente
+    {
+        public string _nome { get; } //talvez sem readonly
+        public string _cpf { get; }
+        public List<Conta> _listaDeConta { get; set; } = new List<Conta>();
+        /*public string MostrarContas()
+        {
+            foreach (Conta conta in listaDaConta)
+            {
+                return conta.ToString();
+            }
+            return conjuntoDeContas;
+        }*/
+        public Cliente(string nome, string cpf, List<Conta> listaDeConta)
+        {
+            this._nome = nome;
+            this._cpf = cpf;
+            this._listaDeConta = listaDeConta;
+        }
+        public override string ToString()
+        {
+            return $"Cliente: {_nome} {Environment.NewLine}CPF: {_cpf} {Environment.NewLine}Contas Abertas: {Environment.NewLine}{string.Join(Environment.NewLine, _listaDeConta)}";
+                //string resultado;
+
+                //resultado = $"Cliente: {_nome} \nCPF: {_cpf} \nContas Abertas: {Environment.NewLine}";
+
+                //Loop de _listaDeConta
+                //para cada conta do loop -> resultado += contaI + Environment.NewLine
+
+                //return resultado;
+        }
+    }
+    class Banco
+    {
+
+        static Dictionary<string, Cliente> todosClientes = new Dictionary<string, Cliente>();
+        static Dictionary<int, Conta> todasAsContas = new Dictionary<int, Conta>();
+        static int numeroContaUsuario; //talvez dê erro: volta no valor base
+
+        static void CadastroConta()
+        {
+            Console.WriteLine("Coloque o seu cpf: ");
+            string cpfUsuario = Console.ReadLine();
+            TipoConta tipoContaUsuario;
+            if (todosClientes.ContainsKey(cpfUsuario))
+            {
+
+                do
+                {
+                    Console.WriteLine($"Escolha o tipo da conta: {Environment.NewLine}(1) Corrente {Environment.NewLine}(2) Poupança");
+                    int escolhaDeConta = Convert.ToInt32(Console.ReadLine());
+                    if (escolhaDeConta == 1)
+                    {
+                        tipoContaUsuario = TipoConta.Corrente;
+                        break;
+                    }
+                    else if (escolhaDeConta == 2)
+                    {
+                        tipoContaUsuario = TipoConta.Poupanca;
+                        break;
+                    }
+                } while (true);
+                numeroContaUsuario++;
+                Conta contaUsuario = new Conta(numeroContaUsuario, 1000, tipoContaUsuario);
+                todasAsContas.Add(numeroContaUsuario, contaUsuario);
+                todosClientes[cpfUsuario]._listaDeConta.Add(contaUsuario);
+            }
+            else
+            {
+                Console.WriteLine("Seu CPF não consta em nossa base de dados. Cadastre um CPF.");
+            }
+        }
+        static void CadastroCliente()
+        {
+            Console.WriteLine("Coloque o seu nome: ");
+            string nomeUsuario = Console.ReadLine();
+            Console.WriteLine("Coloque seu cpf: ");
+            string cpfUsuario = Console.ReadLine();
+            List<Conta> contasUsuario  = new List<Conta>();
+            Cliente clienteUsuario = new Cliente(nomeUsuario, cpfUsuario, contasUsuario);
+            todosClientes.Add(cpfUsuario, clienteUsuario);
+        }
+        static void ConsultarSaldo()
+        {
+            Console.WriteLine("Coloque o seu cpf: ");
+            string cpfUsuario = Console.ReadLine();
+            if (todosClientes.ContainsKey(cpfUsuario))
+            {
+                Console.WriteLine("Qual o número da conta? ");
+                int numeroContaUsuario = Convert.ToInt32(Console.ReadLine()); //nao funciona, talvez procurar pelo objeto
+                todosClientes[cpfUsuario]._listaDeConta.IndexOf(numeroContaUsuario) //int nao funciona
+            }
+        }
+        static void Menu()
+        {
+
+            do
+            {
+                Console.WriteLine("Olá, cliente. Aqui estao nossos serviços:");
+                Console.WriteLine("Solicite a operação que deseja ser efetuar.");
+                Console.WriteLine("(1) Abrir/cadastrar conta");
+                Console.WriteLine("(2) Cadastrar cliente");
+                Console.WriteLine("(3) Fazer deposito");
+                Console.WriteLine("(4) Fazer um saque");
+                Console.WriteLine("(5) Transferir");
+                Console.WriteLine("(6) Consultar saldo");
+                char opcaoDoCliente = Convert.ToChar(Console.ReadLine());
+
+                switch (opcaoDoCliente)
+                {
+                    case '0':
+                        Console.WriteLine("Obrigado por utilizar nossos serviços! Até a próxima.");
+                        return;
+                    case '1':
+                        CadastroConta();
+                        break;
+
+                    case '2':
+                        CadastroCliente();
+                        break;
+
+                    case '3':
+                        Console.WriteLine("");
+                        break;
+
+                    case '4': //impedir conta.tipo == TipoConta.Poupanca
+                        Console.WriteLine("");
+                        break;
+
+                    case '5':
+                        Console.WriteLine("");
+                        break;
+
+                    case '6':
+                        Console.WriteLine("");
+                        break;
+
+                    default:
+                        Console.WriteLine("digite uma opção válida.");
+                        break;
+                }
+            } while (true);
+        }
+        static void Main(string[] args)
+        {
+            Conta conta1 = new Conta(1, 1000, TipoConta.Corrente);
+            Conta conta2 = new Conta(2, 1000, TipoConta.Poupanca);
+            List<Conta> lista1 = new List<Conta>();
+            lista1.Add(conta1);
+            lista1.Add(conta2);
+            Cliente cliente1 = new Cliente("Lucas", "1", lista1);
+            Menu();
+
+            
+
+            //conta1.numerodaconta = "ab";
+            //conta1.saldo = 12;
+            //conta1.tipo = 'a';
+            //conta conta2 = new conta();
+            //conta2.numerodaconta = "4";
+            //conta2.saldo = 15;
+            //conta2.tipo = 'v';
+            //cliente cliente1 = new cliente();
+            //cliente1.nome = "lucas";
+            //cliente1.cpf = "123";
+            //cliente1.listadaconta.add(conta1);
+            //cliente1.listadaconta.add(conta2);
+
+            Console.WriteLine(cliente1);
+            //cliente1._listaDeConta.ForEach(conta => Console.WriteLine($"{conta}") ); 
+        }
+    }
+}
